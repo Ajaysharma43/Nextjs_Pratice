@@ -12,5 +12,5 @@ export const SubmitForm = async (e) => {
         ConfirmPassword: e.get('ConfirmPassword'),
     }
     
-    const response = await axios.post('/api/Form' , {Data : Form} )
+    const response = await axios.post('/api/form' , {Data : Form} )
 }
