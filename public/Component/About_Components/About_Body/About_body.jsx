@@ -14,7 +14,9 @@ const About_Body = () => {
     }
     const response = await axios.post('api/add' , {data : data.name})
     console.log(await response.data);
+    
   }
+  
 
   return (
     <>
@@ -27,6 +29,8 @@ const About_Body = () => {
                 <input 
                     type="text" 
                     placeholder="Type here" 
+                    id="name"
+                    name="name"
                     className="focus:outline-none border-2 border-gray-400 p-[6px] rounded-lg w-[500px]" 
                     required 
                 />
@@ -43,12 +47,14 @@ const About_Body = () => {
 
                     {/* "I will graduate in" Checkbox */}
                     <div className="flex items-center gap-2">
-                        <input type="checkbox" id="graduateIn" className="w-4 h-4 rounded-none" />
+                        <input type="checkbox" id="graduateIn" className="w-4 h-4 rounded-none" name="check"/>
                         <label htmlFor="graduateIn" className="flex items-center gap-2 cursor-pointer">
                             <span className="font-semibold">I will graduate in</span>
                             <input 
                                 type="number" 
                                 placeholder="2026" 
+                                id="name"
+                                name="year"
                                 className="focus:outline-none border-2 border-gray-400 p-[3px] rounded-lg w-[70px] text-center" 
                             />
                         </label>
@@ -57,7 +63,7 @@ const About_Body = () => {
 
                 {/* Continue Button */}
                 <div className="flex items-center gap-4 pt-5 pb-4">
-                    <button className="bg-black text-white px-6 py-1 rounded-lg text-lg font-semibold">
+                    <button type="submit" className="bg-black text-white px-6 py-1 rounded-lg text-lg font-semibold">
                         Continue
                     </button>
                     <span className="text-gray-500 text-sm">press Enter ↵</span>
