@@ -2,24 +2,22 @@
 import { NextResponse } from "next/server"
 import { Pool } from "pg"
 
-const pool  = new Pool({
-    connectionString : process.env.DATABASE_URL
+const pool = new Pool({
+    connectionString: process.env.DATABASE_URL
 })
 const client = await pool.connect()
 
 export async function GET() {
-    
-    try
-    {
-        const result  = await client.query('SELECT * FROM todo')
-        
-        return NextResponse.json({data : result.rows})
+
+    try {
+        const result = await client.query('SELECT * FROM todo')
+
+        return NextResponse.json({ data: result.rows })
     }
-    catch(error)
-    {
-        return NextResponse.json({error : error})
+    catch (error) {
+        return NextResponse.json({ error: error })
     }
-    
+
 }
 
 export async function POST(req) {
@@ -29,6 +27,6 @@ export async function POST(req) {
         VALUES ('${Data.Data.todoname}' , '${Data.Data.todo}')
         `)
 
-        const result  = await client.query('SELECT * FROM todo')
-        NextResponse.json({Data : result.rows})
+    const result = await client.query('SELECT * FROM todo')
+    return NextResponse.json({ Data: result.rows })
 }

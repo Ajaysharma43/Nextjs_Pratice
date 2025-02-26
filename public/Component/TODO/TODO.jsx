@@ -9,6 +9,7 @@ import { Getdata } from "@/lib/Slices/Data/Dataslice";
 
 const Todo_body = () => {
   const data = useSelector((state) => state.Data.Data)
+  const [Dilog , setdilog] = useState(false)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -24,9 +25,20 @@ const Todo_body = () => {
     fetchData();
   }, []);
 
+  const HandleAddDilog = () => {
+    if(Dilog == true)
+    {
+        setdilog(false)
+    }
+    else
+    {
+        setdilog(true)
+    }
+  }
+
   return (
     <>
-    <AddDilog/>
+    <AddDilog open={Dilog} onclose={HandleAddDilog}/>
       <table className="border border-solid m-2">
         <thead>
           <tr>
@@ -43,6 +55,7 @@ const Todo_body = () => {
           ))}
         </tbody>
       </table>
+      <button onClick={HandleAddDilog}>Add</button>
     </>
   );
 };

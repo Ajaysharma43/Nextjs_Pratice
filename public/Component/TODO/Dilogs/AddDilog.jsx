@@ -4,7 +4,7 @@ import { Dialog, DialogContent } from "@mui/material";
 import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 
-const AddDilog = () => {
+const AddDilog = ({open  , onclose}) => {
   const ref = useRef();
   const dispatch = useDispatch();
   const [data, setData] = useState({
@@ -25,7 +25,7 @@ const AddDilog = () => {
 
   return (
     <>
-      <Dialog open={true}>
+      <Dialog open={open}>
         <DialogContent>
           <form onSubmit={handleSubmit} className="flex flex-col gap-2" ref={ref}>
             <div>
@@ -37,6 +37,7 @@ const AddDilog = () => {
               <textarea name="Todo" id="Todo" className="border" />
             </div>
             <button type="submit" className="border w-fit p-2">save</button>
+            <button onClick={onclose}>close</button>
           </form>
         </DialogContent>
       </Dialog>
