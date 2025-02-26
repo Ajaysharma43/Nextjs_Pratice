@@ -9,10 +9,7 @@ const About_Body = () => {
   const ref = useRef()
 
   const SendData = async() => {
-    let data = {
-      name : "ajay"
-    }
-    const response = await axios.post('api/add' , {data : data.name})
+    const response = await axios.get('api/data')
     console.log(await response.data);
     
   }
