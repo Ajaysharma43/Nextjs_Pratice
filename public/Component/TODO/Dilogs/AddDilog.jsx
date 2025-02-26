@@ -21,6 +21,7 @@ const AddDilog = ({open  , onclose}) => {
     };
     dispatch(SaveData({Data : data}));
     ref.current.reset();
+    onclose()
   };
 
   return (

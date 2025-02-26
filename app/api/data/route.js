@@ -30,3 +30,15 @@ export async function POST(req) {
     const result = await client.query('SELECT * FROM todo')
     return NextResponse.json({ Data: result.rows })
 }
+
+export async function DELETE(req) {
+    const {id} = await req.json()
+    const Delete = await client.query(`
+        DELETE FROM todo
+        WHERE id = ${id}
+        `)
+    
+        const result = await client.query('SELECT * FROM todo')
+        return NextResponse.json({ Data: result.rows })
+    
+}
