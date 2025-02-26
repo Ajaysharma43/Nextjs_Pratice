@@ -2,15 +2,18 @@
 
 import { useEffect, useState } from "react";
 import AddDilog from "./Dilogs/AddDilog";
-import { useDispatch, useSelector } from "react-redux";
-import { DeleteData, Getdata, UpdateData } from "@/lib/Slices/Data/Dataslice";
 import Update from "./Dilogs/Update";
+import DeleteDialog from "./Dilogs/DeleteDilog";
+import { useDispatch, useSelector } from "react-redux";
+import { DeleteData, Getdata } from "@/lib/Slices/Data/Dataslice";
 
 const Todo_body = () => {
-  const data = useSelector((state) => state.Data.Data);
-  const [Updatedata,setupdatedata] = useState({})
+  const data = useSelector((state) => state.Data.Data) || [];
+  const [Updatedata, setupdatedata] = useState({});
   const [Dilog, setdilog] = useState(false);
-  const [UpdateDilog , setUpdateDilog] = useState(false)
+  const [UpdateDilog, setUpdateDilog] = useState(false);
+  const [DeleteDilog, setDeleteDilog] = useState(false);
+  const [Deleteid, setdeleteid] = useState(null);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -29,20 +32,32 @@ const Todo_body = () => {
     setdilog(!Dilog);
   };
 
-  const HandleUpdate = (name , todo , id) => {
+  const HandleUpdate = (name, todo, id) => {
     const data = {
-        name : name,
-        todo : todo,
-        id : id
-    }
-    setupdatedata(data)
-    setUpdateDilog(!UpdateDilog)
-  }
+      name: name,
+      todo: todo,
+      id: id,
+    };
+    setupdatedata(data);
+    setUpdateDilog(!UpdateDilog);
+  };
+
+  const HandleDelete = (id) => {
+    setdeleteid(id);
+    setDeleteDilog(true);
+  };
+
+  const confirmDelete = () => {
+    console.log("called");
+    dispatch(DeleteData({ id: Deleteid }));
+    setDeleteDilog(false);
+  };
 
   return (
     <>
       <AddDilog open={Dilog} onclose={HandleAddDilog} />
-      <Update open={UpdateDilog} Handleclose={HandleUpdate} Data={Updatedata}/>
+      <Update open={UpdateDilog} Handleclose={() => setUpdateDilog(false)} Data={Updatedata} />
+      <DeleteDialog open={DeleteDilog} handleClose={() => setDeleteDilog(false)} confirmDelete={confirmDelete} />
       <div className="container mx-auto p-4">
         <table className="min-w-full bg-white border border-gray-300">
           <thead>
@@ -60,15 +75,16 @@ const Todo_body = () => {
                   <td className="py-2 px-4">{item.todo}</td>
                   <td className="py-2 px-4 flex justify-center gap-2">
                     <button
-                      onClick={() => dispatch(DeleteData({ id: item.id }))}
+                      onClick={() => HandleDelete(item.id)}
                       className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700"
                     >
                       Delete
                     </button>
                     <button
-                    className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-700"
-                    onClick={() => HandleUpdate(item.name , item.todo , item.id)}>
-                        Update
+                      className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-700"
+                      onClick={() => HandleUpdate(item.name, item.todo, item.id)}
+                    >
+                      Update
                     </button>
                   </td>
                 </tr>

@@ -34,7 +34,8 @@ export async function POST(req) {
 export async function DELETE(req) {
     try {
         const { id } = await req.json();
-        await client.query(`DELETE FROM todo WHERE id = $1`, [id]);
+        
+        await client.query(`DELETE FROM todo WHERE id = ${id}`);
 
         const result = await client.query("SELECT * FROM todo");
         return NextResponse.json({ Data: result.rows });
@@ -47,7 +48,7 @@ export async function PUT(req) {
     try {
         const { data } = await req.json();
         console.log(data);
-        
+
         await client.query(
             `UPDATE todo 
         SET name = '${data.name}',todo = '${data.todo}'
