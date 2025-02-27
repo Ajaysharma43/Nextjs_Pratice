@@ -1,13 +1,28 @@
 "use client";
-import { useState } from 'react';
+import { Login } from '@/lib/Slices/Auth/AuthSlice';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function LoginPage() {
+    const Success = useSelector((state) => state.Auth.Success)
+    const navigate = useRouter()
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const dispatch = useDispatch()
+    useEffect(() => {
+        if (Success == true) {
+            navigate.push('/pages/todo')
+        }
+    }, [Success])
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Handle login logic here
+        const FormData = {
+            email: email,
+            password: password
+        }
+        dispatch(Login({ FormData }))
         console.log('Email:', email);
         console.log('Password:', password);
     };

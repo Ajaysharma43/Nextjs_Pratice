@@ -1,10 +1,13 @@
 "use client";
 import { SetData } from '@/lib/Slices/Auth/AuthSlice';
-import { useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useRouter } from 'next/navigation';
+import { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function SignupPage() {
+    const Success = useSelector((state) => state.Auth.Success)
     const dispatch = useDispatch()
+    const navigate = useRouter()
     const formref = useRef()
     const [formData, setFormData] = useState({
         username: '',
@@ -16,6 +19,12 @@ export default function SignupPage() {
         phoneNumber: '',
     });
 
+    useEffect(() => {
+        if (Success == true) {
+            navigate.push('/pages/login')
+        }
+    }, [Success])
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({
@@ -26,7 +35,7 @@ export default function SignupPage() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(SetData({formData}))
+        dispatch(SetData({ formData }))
         console.log('Form data submitted:', formData);
     };
 
@@ -34,7 +43,7 @@ export default function SignupPage() {
         <div className="flex items-center justify-center min-h-screen bg-gray-100">
             <div className="w-full max-w-md p-8 space-y-6 bg-white rounded shadow-md">
                 <h1 className="text-2xl font-bold text-center">Signup</h1>
-                <form ref={formref} onSubmit={handleSubmit}  className="space-y-4">
+                <form ref={formref} onSubmit={handleSubmit} className="space-y-4">
                     <div>
                         <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">First Name:</label>
                         <input
