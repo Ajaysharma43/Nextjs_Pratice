@@ -38,19 +38,27 @@ export async function POST(req) {
 
         else if (type == 'Login') {
             try {
-                const findUser = await (await client).query(`
-                SELECT * FROM public."Authentication"
-                WHERE "email" = '${Data.email}'`)
-                const Existed = findUser.rows.find((item) => item.email == Data.email)
-                if (Existed) {
-                    return NextResponse.json({ message: "this is login type", Existed: Existed, Success: true })
+                if(Data.email != null && Data.password != null)
+                {
+                    const findUser = await (await client).query(`
+                        SELECT * FROM public."Authentication"
+                        WHERE "email" = '${Data.email}'`)
+                        const Existed = findUser.rows.find((item) => item.email == Data.email)
+                        if (Existed) {
+                            return NextResponse.json({ Message: "Success", Existed: Existed, Success: true })
+                        }
+                        else {
+                            return NextResponse.json({ Message: "Unauthorized", Success: false })
+                        }
                 }
-                else {
-                    return NextResponse.json({ message: "Unauthorized", Success: false })
+                else
+                {
+                    return NextResponse.json({Message : "crendentails not avalaible" , Success : false})
                 }
+                
             }
             catch (error) {
-                return NextResponse.json({ error: error })
+                return NextResponse.json({ error: error , Message : "Server error"})
             }
 
         }

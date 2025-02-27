@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 export default function LoginPage() {
     const Success = useSelector((state) => state.Auth.Success)
+    const Message = useSelector((state) => state.Auth.Message)
     const navigate = useRouter()
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -31,6 +32,9 @@ export default function LoginPage() {
         <div className="flex items-center justify-center min-h-screen bg-gray-100">
             <form onSubmit={handleSubmit} className="flex flex-col w-full max-w-sm p-8 space-y-4 bg-white rounded shadow-md">
                 <h2 className="text-2xl font-bold text-center">Login</h2>
+                <div>
+                    <h1 className='text-center'>{Message == "Success" ? (<span className='text-green-500'>{Message}</span>):(<span className='text-red-500'>{Message}</span>)}</h1>
+                </div>
                 <div>
                     <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email:</label>
                     <input
