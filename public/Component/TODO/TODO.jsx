@@ -26,7 +26,7 @@ const Todo_body = () => {
       }
     };
     fetchData();
-  }, [dispatch]);
+  }, [data.length]);
 
   const HandleAddDilog = () => {
     setdilog(!Dilog);

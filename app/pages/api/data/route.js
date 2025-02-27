@@ -33,7 +33,8 @@ export async function POST(req) {
 
 export async function DELETE(req) {
     try {
-        const { id } = await req.json();
+        const  {id}  = await req.json();
+        console.log(id);
         
         await client.query(`DELETE FROM todo WHERE id = ${id}`);
 
