@@ -2,6 +2,8 @@
 import Link from "next/link";
 import { Advent_Pro } from "next/font/google";
 import { useTheme } from "next-themes";
+import { useRef } from "react";
+
 
 const roboto = Advent_Pro({
   weight: ['400'],
@@ -11,6 +13,7 @@ const roboto = Advent_Pro({
 
 export default function Home() {
   const {theme , settheme} = useTheme()
+  const ref = useRef()
   return (
     <>
       <div>
@@ -20,6 +23,10 @@ export default function Home() {
         </Link>
         <h1 className={`${roboto.className} uppercase ${theme === 'dark' ? "text-blue-300" : "text-black"}`}>hello</h1>
       </div>
+
+      <Link href={'/Search?name="hello"'}>
+      <button>click me</button>
+      </Link>
     </>
   );
 }
