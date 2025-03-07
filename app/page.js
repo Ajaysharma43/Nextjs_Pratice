@@ -4,6 +4,8 @@ import { Advent_Pro } from "next/font/google";
 import { useTheme } from "next-themes";
 import { useRef } from "react";
 import { redirect } from "next/navigation";
+import Image from "next/image";
+import Banner from "@/public/Assests/pexels-etha-34545-128234.jpg"
 
 
 const roboto = Advent_Pro({
@@ -31,6 +33,8 @@ export default function Home() {
       </Link>
 
       <button onClick={() => redirect('/Search?name=hello&name=hy' , 'replace')}>Redirect</button>
+
+      <Image src={Banner} width={200} height={100} placeholder="blur" alt="no image"/>
     </>
   );
 }
