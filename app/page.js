@@ -24,7 +24,7 @@ export default function Home() {
         <h1 className={`${roboto.className} uppercase ${theme === 'dark' ? "text-blue-300" : "text-black"}`}>hello</h1>
       </div>
 
-      <Link href={'/Search?name="hello"'}>
+      <Link href={'/Search?name=hello&name=hy'}>
       <button>click me</button>
       </Link>
     </>

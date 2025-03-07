@@ -5,10 +5,10 @@ const Search = () => {
     const search = useSearchParams();
     const data = search.get('name')
     console.log(data);
-    
     return(
         <>
         hello
+        {data}
         </>
     )
 }
